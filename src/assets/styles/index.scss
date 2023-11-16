@@ -1,0 +1,14 @@
+@import "reset";
+@import "fonts";
+body {
+  font-family: Shabnam , Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+
+  @media screen and (min-width: 600px){
+    width: 50%;
+  }
+}

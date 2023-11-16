@@ -1,0 +1,1 @@
+export const GET_VENDORS_LIST = "https://snappfood.ir/mobile/v3/restaurant/vendors-list"
