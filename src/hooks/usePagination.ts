@@ -7,7 +7,7 @@ import {VendorResponseType} from "../types/global";
 
 interface PaginationOptions {
     page: number;
-    pageSize: number;
+    page_size: number;
     lat : string
     long : string
 }
@@ -19,15 +19,16 @@ export const usePagination = <T>(
     const initialized = useRef(false)
     const optionsRef = useRef(options);
 
-    const { status, data, error, execute } =
-        usePromise<undefined, T>(() => restHandler(initialUrl , "GET" , optionsRef.current));
+    const execute = () => restHandler(initialUrl , "GET" , optionsRef.current)
 
     const loadMore = () => {
-        optionsRef.current = { ...optionsRef.current, page: optionsRef.current.page + 1 };
-        if(status != "pending") execute(undefined).then((res : VendorResponseType) => {
-            store.dispatch(addVendors(res.data.finalResult))
-            return res
-        });
+        return new Promise<void>((resolve,reject) => {
+            execute().then((res: VendorResponseType) => {
+                store.dispatch(addVendors(res.data.finalResult))
+                return res
+            }).then(() => resolve()).catch(reject);
+            optionsRef.current = {...optionsRef.current, page: optionsRef.current.page + 1};
+        })
     };
 
     useEffect(() => {
@@ -38,5 +39,5 @@ export const usePagination = <T>(
         }
     }, []);
 
-    return { status, data, error, loadMore };
+    return { loadMore };
 };

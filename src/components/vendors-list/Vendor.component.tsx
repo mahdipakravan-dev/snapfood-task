@@ -1,17 +1,10 @@
 import {IVendor} from "../../types/global";
-import {useSelector} from "react-redux";
-import {ReducerType} from "../../store";
-import {memo} from "react";
 
 type Props = {
-    vendorId: IVendor["data"]["id"]
+    vendor: IVendor["data"]
 };
-export const Vendor = memo(({vendorId}: Props) => {
-    const vendor = useSelector<ReducerType , IVendor["data"]>(global => global.vendors.byId[vendorId]?.data)
-    if(!vendor) {
-        return <>wait...</>
-    }
-    return (
+export const VendorComponent = ({vendor}: Props) => {
+        return (
         <div className={"vendor"} key={vendor.id} data-vendor={vendor.id}>
             <div className="vendor__cover">
                 <img src={vendor.coverPath} className={"vendor__cover__image"} alt=""/>
@@ -28,4 +21,4 @@ export const Vendor = memo(({vendorId}: Props) => {
             </div>
         </div>
     );
-} , () => true);
+};

@@ -5,10 +5,40 @@ body {
 }
 
 .container {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 
   @media screen and (min-width: 600px){
     width: 50%;
   }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; // Adjust as needed
+}
+
+.pulse-loader {
+  width: 20px; // Adjust the size as needed
+  height: 20px; // Adjust the size as needed
+  background-color: #3498db; // Adjust the color as needed
+  border-radius: 50%;
+  animation: pulse 1s infinite; // Adjust the duration as needed
 }
